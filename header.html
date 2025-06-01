@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyBit</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            overflow-x: hidden;
+            background-color: transparent;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #E6E2E2;
+            z-index: 1000;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .burger {
+            display: none;
+            font-size: 1.5em;
+            background: none !important;
+            border: none;
+            color: #1e90ff;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .burger i {
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a,
+        .dropdown-toggle {
+            text-decoration: none;
+            color: #1e90ff;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 8px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .dropdown-toggle:hover,
+        .nav-links a:hover {
+            color: #1e90ff;
+            transform: translateY(-1px);
+        }
+
+        .dropdown-menu {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            min-width: 100%;
+            z-index: 999;
+            gap: 10px;
+        }
+
+        .dropdown-menu.show {
+            display: flex;
+        }
+
+        .dropdown-item {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding: 10px;
+            border-radius: 10px;
+            transition: background 0.2s;
+            background-color: white;
+            text-decoration: none;
+            flex: 1 1 250px;
+            /* desktop default */
+        }
+
+        .dropdown-item:hover {
+            background: #e6f2ff;
+        }
+
+        .dropdown-item i {
+            font-size: 1.4rem;
+            color: #1e90ff;
+            width: 30px;
+            text-align: center;
+        }
+
+        .dropdown-item strong {
+            color: #1e90ff;
+        }
+
+        .ticker {
+            background-color: #E6E2E2;
+            padding: 5px 0;
+            font-size: 0.9em;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll 20s linear infinite;
+            color: #1e90ff;
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(0%);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            opacity: 0;
+            animation: fadeIn 2s ease-in forwards;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            color: white;
+        }
+
+        .hero-content p {
+            opacity: 0;
+            animation: fadeInText 2s ease-in forwards;
+            animation-delay: 1s;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            margin-top: 10px;
+            white-space: nowrap;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .admin-only {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .burger {
+                display: block;
+            }
+
+            .navbar {
+                padding: 8px 12px
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: flex-start;
+                position: absolute;
+                top: 100px;
+                left: 0;
+                right: 0;
+                background: #E6E2E2;
+                padding: 10px 16px;
+                display: none;
+                gap: 10px;
+                box-sizing: border-box;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .dropdown-menu {
+                flex-direction: column;
+                position: static;
+                box-shadow: none;
+                background: transparent;
+                padding: 0;
+                gap: 0;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            .dropdown-item {
+                background: white;
+                width: 100%;
+                padding: 6px 12px;
+                margin: 3px 0;
+                border-radius: 6px;
+                font-size: 0.9em;
+                display: flex;
+                gap: 10px;
+                align-items: flex-start;
+                word-break: break-word;
+                flex: none;
+                /* override desktop flex */
+            }
+
+            .dropdown-item i {
+                font-size: 1.2rem;
+                width: 24px;
+                text-align: center;
+                margin-top: 2px;
+            }
+
+            .dropdown-item div {
+                line-height: 1.3;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/" class="logo">
+                <img src="https://skybit.designbynoorsh.dk/wp-content/uploads/2025/05/logowebp.webp"
+                    alt="SkyBit logo" />
+            </a>
+            <button class="burger" onclick="toggleBurgerMenu()">
+                <i class="fas fa-bars" id="burgerIcon"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li class="dropdown-parent">
+                    <button type="button" class="dropdown-toggle" onclick="toggleDropdown(this)">
+                        Brancher <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="https://skybit.designbynoorsh.dk/index.php/totalentreprenoer/" class="dropdown-item">
+                            <i class="fas fa-wrench"></i>
+                            <div><strong>Totalentreprenør</strong><br />Se, hvordan totalentreprenør bruger systemet
+                            </div>
+                        </a>
+                        <a href="https://skybit.designbynoorsh.dk/index.php/hovedentreprenoer/" class="dropdown-item">
+                            <i class="fas fa-bolt"></i>
+                            <div><strong>Hovedentreprenør</strong><br />Se, hvordan hovedentreprenør bruger systemet
+                            </div>
+                        </a>
+                        <a href="https://skybit.designbynoorsh.dk/index.php/haandvaerksvirksomheder-eller-fagentreprenoer/"
+                            class="dropdown-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div><strong>Håndværksvirksomheder eller fagentreprenør</strong><br />Se, hvordan de bruger
+                                systemet</div>
+                        </a>
+                        <a href="https://skybit.designbynoorsh.dk/index.php/advokatfirmaer/" class="dropdown-item">
+                            <i class="fas fa-water"></i>
+                            <div><strong>Advokatfirmaer</strong><br />Se, hvordan advokatfirmaer bruger systemet</div>
+                        </a>
+                        <a href="https://skybit.designbynoorsh.dk/index.php/virksomheder-med-omfattende-service-aftaler/"
+                            class="dropdown-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div><strong>Virksomheder med omfattende serviceaftaler</strong><br />Se, hvordan de bruger
+                                systemet</div>
+                        </a>
+                        <a href="https://skybit.designbynoorsh.dk/index.php/produktions-og-lagerstyringsvirksomhed//"
+                            class="dropdown-item">
+                            <i class="fas fa-industry"></i>
+                            <div>
+                                <strong>Produktions- og lagerstyringsvirksomheder</strong><br />
+                                Se, hvordan de bruger systemet
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                <li><a href="https://skybit.designbynoorsh.dk/index.php/produktions-og-lagerstyringsvirksomheder/"
+                        onclick="closeBurger()">Om os</a></li>
+                <li><a href="https://skybit.designbynoorsh.dk/index.php/kontakt-os/" onclick="closeBurger()">Kontakt
+                        os</a></li>
+                <li class="admin-only"><a
+                        href="https://skybit.designbynoorsh.dk/wp-admin/post.php?post=4832&action=elementor"
+                        target="_blank" onclick="closeBurger()">Rediger sektion (Elementor)</a></li>
+            </ul>
+        </nav>
+        <div class="ticker">
+            <span>Visma Software   Visma Software   Visma Software   Visma Software</span>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <video autoplay muted loop playsinline class="video-background">
+            <source
+                src="https://skybit.designbynoorsh.dk/wp-content/uploads/2025/05/964ec2a5-4602-4536-afe6-ac1d18753982.mp4"
+                type="video/mp4" />
+            Din browser understøtter ikke video.
+        </video>
+        <div class="hero-content">
+            <h1>SKYBIT</h1>
+            <p>One system for business success</p>
+        </div>
+    </section>
+
+    <script>
+        function toggleDropdown(button) {
+            const parent = button.closest(".dropdown-parent");
+            const menu = parent.querySelector(".dropdown-menu");
+            const arrow = button.querySelector(".dropdown-arrow");
+            document.querySelectorAll(".dropdown-menu").forEach(m => {
+                if (m !== menu) m.classList.remove("show");
+            });
+            document.querySelectorAll(".dropdown-arrow").forEach(a => {
+                if (a !== arrow) {
+                    a.classList.remove("fa-chevron-up");
+                    a.classList.add("fa-chevron-down");
+                }
+            });
+            menu.classList.toggle("show");
+            arrow.classList.toggle("fa-chevron-down");
+            arrow.classList.toggle("fa-chevron-up");
+        }
+
+        function toggleBurgerMenu() {
+            const nav = document.getElementById("navLinks");
+            const icon = document.getElementById("burgerIcon");
+            nav.classList.toggle("show");
+            icon.classList.toggle("fa-bars");
+            icon.classList.toggle("fa-times");
+            document.querySelectorAll(".dropdown-menu").forEach(menu => menu.classList.remove("show"));
+            document.querySelectorAll(".dropdown-arrow").forEach(arrow => {
+                arrow.classList.remove("fa-chevron-up");
+                arrow.classList.add("fa-chevron-down");
+            });
+        }
+
+        function closeBurger() {
+            const nav = document.getElementById("navLinks");
+            const icon = document.getElementById("burgerIcon");
+            nav.classList.remove("show");
+            icon.classList.remove("fa-times");
+            icon.classList.add("fa-bars");
+        }
+
+        document.addEventListener("click", function (e) {
+            if (!e.target.closest(".dropdown-parent")) {
+                document.querySelectorAll(".dropdown-menu").forEach(menu => menu.classList.remove("show"));
+                document.querySelectorAll(".dropdown-arrow").forEach(arrow => {
+                    arrow.classList.remove("fa-chevron-up");
+                    arrow.classList.add("fa-chevron-down");
+                });
+            }
+        });
+
+        document.querySelectorAll(".dropdown-item").forEach(link => {
+            link.addEventListener("click", closeBurger);
+        });
+    </script>
+</body>
+
+</html>

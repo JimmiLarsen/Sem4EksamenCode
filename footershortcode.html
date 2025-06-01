@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyBit</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+
+    <!-- Font Awesome til ikoner -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-ZsHw1FbBD3GZPzKtr7JokSNYLQxUS7vZtDQZc0/1gVdDJAbO/7hC+1wG/yZHOz6qP+ZQbX0hSnApvJ/5jX3ZKg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        font-family: "Roboto", sans-serif;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      body {
+        background-color: transparent;
+      }
+
+      main {
+        flex: 1;
+      }
+
+      .footer {
+        width: 100%;
+        background-color: white;
+        padding: 30px 40px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        font-size: 0.95em;
+        color: #1e90ff;
+        border-top: 1px solid #ddd;
+        box-sizing: border-box;
+      }
+
+      .footer a {
+        text-decoration: none;
+        color: #1e90ff;
+      }
+
+      .footer-left {
+        flex: 1;
+        min-width: 250px;
+        margin-bottom: 20px;
+      }
+
+      .footer-right {
+        flex: 1;
+        min-width: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .newsletter-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .footer {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 20px;
+        }
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <section style="padding: 40px;">
+        <h1>SkyBit</h1>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <p><strong>Skybit Aps</strong></p>
+        <p>
+          <a href="https://www.linkedin.com/company/skybit-aps/posts/?feedView=all" target="_blank" rel="noopener noreferrer">
+            Følg os på LinkedIn <i class="fab fa-linkedin"></i>
+          </a>
+        </p>
+        <p>
+          Kontakt os<br />
+          SkyBit Aps<br />
+          Østre Alle 6, 9530<br />
+          Tlf.: (+45) 53 73 29 26<br />
+          Email: <a href="mailto:support@skybit.dk">support@skybit.dk</a>
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <p class="newsletter-title">Tilmeld dig vores nyhedsbrev</p>
+        <div class="klaviyo-form-VswPht"></div>
+      </div>
+    </footer>
+
+    <!-- Klaviyo embed script -->
+    <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=Y7C2tP"></script>
+  </body>
+</html>
