@@ -1,0 +1,138 @@
+<div class="erp-accordion">
+  <div class="erp-item">
+    <button class="erp-question">
+      Hvorfor bruger virksomheder ERP-systemer?
+      <span class="erp-icon">▼</span>
+    </button>
+    <div class="erp-answer">
+      Fordi det er ineffektivt at have økonomi ét sted, lager et andet sted og timer et tredje.<br>
+      Med ERP samles det hele ét sted og det gør hverdagen lettere og mere overskuelig.
+    </div>
+  </div>
+
+  <div class="erp-item">
+    <button class="erp-question">
+      Hvad kan et ERP-system helt konkret hjælpe med?
+      <span class="erp-icon">▼</span>
+    </button>
+    <div class="erp-answer">
+      Det kan hjælpe med økonomistyring, lagerstyring, løn, HR, CRM, projektstyring og rapportering – alt sammen i ét samlet system.
+    </div>
+  </div>
+
+  <div class="erp-item">
+    <button class="erp-question">
+      Hvad er fordelene ved at samle det hele ét sted?
+      <span class="erp-icon">▼</span>
+    </button>
+    <div class="erp-answer">
+      Du får overblik, sparer tid, reducerer fejl, øger effektiviteten og forbedrer samarbejdet mellem afdelinger.
+    </div>
+  </div>
+
+  <div class="erp-item">
+    <button class="erp-question">
+      Hvem har glæde af et ERP-system?
+      <span class="erp-icon">▼</span>
+    </button>
+    <div class="erp-answer">
+      Alle typer virksomheder – små som store – har gavn af ERP. Det gælder både ledelse, bogholderi, salg, lager og produktion.
+    </div>
+  </div>
+
+  <div class="erp-item">
+    <button class="erp-question">
+      Hvordan ved jeg, om vi er klar til ERP?
+      <span class="erp-icon">▼</span>
+    </button>
+    <div class="erp-answer">
+      Hvis I bruger flere forskellige systemer, har manuelle processer eller mangler overblik, kan et ERP-system være løsningen.
+    </div>
+  </div>
+</div>
+
+<style>
+  .erp-accordion {
+    max-width: 800px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+  }
+
+  .erp-item {
+    border-top: 1px solid #ccc;
+  }
+
+  .erp-question {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    padding: 18px 20px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+  }
+
+  .erp-question:hover {
+    background-color: #1e90ff;
+    color: white;
+  }
+
+  .erp-question:hover .erp-icon {
+    color: white;
+  }
+
+  .erp-icon {
+    transition: transform 0.3s ease;
+    margin-left: 10px;
+  }
+
+  .erp-question.active .erp-icon {
+    transform: rotate(180deg);
+  }
+
+  .erp-answer {
+    display: none;
+    padding: 0 20px 20px;
+    background-color: white;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 600px) {
+    .erp-question {
+      font-size: 0.95rem;
+      padding: 16px;
+    }
+
+    .erp-answer {
+      font-size: 0.9rem;
+      padding: 0 16px 16px;
+    }
+  }
+</style>
+
+<script>
+  const erpButtons = document.querySelectorAll('.erp-question');
+
+  erpButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.classList.contains('active');
+
+      // Luk alle
+      erpButtons.forEach(b => {
+        b.classList.remove('active');
+        b.nextElementSibling.style.display = 'none';
+      });
+
+      // Åbn kun hvis den ikke allerede var åben
+      if (!isOpen) {
+        btn.classList.add('active');
+        btn.nextElementSibling.style.display = 'block';
+      }
+    });
+  });
+</script>
